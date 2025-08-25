@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Review for "{{ book.title }}"</h1>
+<form method="post">
+    <label>Your Name: <input type="text" name="reviewer" required></label><br><br>
+    <label>Rating:
+        <select name="rating">
+            {% for i in range(1, 6) %}
+                <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+        </select>
+    </label><br><br>
+    <label>Review:<br>
+        <textarea name="text" required></textarea>
+    </label><br><br>
+    <button type="submit">Submit Review</button>
+</form>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ book.title }}</h1>
+<p><strong>Author:</strong> {{ book.author }}</p>
+<p><strong>Description:</strong> {{ book.description }}</p>
+
+<hr>
+<h2>Reviews</h2>
+
+{% if book.reviews and book.reviews|length > 0 %}
+    <ul>
+        {% for review in book.reviews %}
+            <li>
+                <strong>{{ review.reviewer }}</strong> rated <strong>{{ review.rating }}/5</strong><br>
+                <p>{{ review.text }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <p><strong>Average Rating:</strong>
+        {{ "%.1f"|format(book.reviews | map(attribute='rating') | sum / book.reviews|length) }}
+    </p>
+{% else %}
+    <p>No reviews yet.</p>
+{% endif %}
+
+<a href="{{ url_for('add_review', id=book.id) }}">Add a Review</a>
+{% endblock %}

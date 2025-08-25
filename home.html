@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>All Books</h1>
+<ul>
+    {% for book in books %}
+        <li>
+            <a href="{{ url_for('book_detail', id=book.id) }}">{{ book.title }}</a> by {{ book.author }}
+            {% if book.reviews %}
+                - Avg Rating: {{ "%.1f"|format(book.reviews | map(attribute='rating') | sum / book.reviews|length) }}
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}
